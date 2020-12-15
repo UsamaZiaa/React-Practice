@@ -1,26 +1,43 @@
-import { useState } from 'react'
-import WeatherFetch from './components/WeatherFetch'
+import { useEffect, useState } from 'react'
+import { useWidth } from './hooks/useWidth';
+import { useDocumentTitle } from './hooks/useDocumentTitle';
+import { useTodo } from './hooks/useTodo';
 
 function App() {
-  const [city, setCityName] = useState('')
-  const [showWeather, setShowWeather] = useState(false)
-  
-  const handleCity = (event) => {
-    setCityName(event.target.value)
-  } 
-  
-  const setQuery = () => {
-      setShowWeather(city)
-      setCityName('')
+  const width = useWidth()
+  const changeTitle = useDocumentTitle("Todo App");
+  const [item, setItem] = useState('');
+  const [todo, { addTodo, deleteTodo }] = useTodo([])
+    
+  useEffect(() => {
+    changeTitle(`Todo App - item ${todo.length}`)
+   }, [todo])
+
+  const onAddItem = () => {
+    addTodo(item)
+    setItem('')
+  }
+
+  const onInputChange = (event) => {
+    setItem(event.target.value)
+  }
+
+  const onDelete = (index) => {
+    deleteTodo(index);
   }
 
   return (
     <div>
-      <h1>Weather App</h1>
-      <input value={city} type="text" placeholder="Enter City Name" onChange={handleCity}/>
-      <button onClick={setQuery}>Search</button>
-      {/* {showWeather? <WeatherFetch searchCity ={city}/> : null} */}
-      {showWeather? <WeatherFetch searchCity ={showWeather}/> : null}
+      <p>Window Size: {width}</p>
+      <h1>Hello Usama</h1>
+      <input value={item} onChange={onInputChange} />
+      <button onClick={onAddItem}>Add Item</button>
+      {todo.map((item, index) =>{
+        return <li key={index}>
+        {item}{' '}  
+        <button onClick={() => onDelete(index)}>Delete</button>
+      </li>
+      })}   
     </div>
   );
 }
