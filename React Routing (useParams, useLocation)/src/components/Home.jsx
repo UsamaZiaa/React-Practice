@@ -1,8 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
-const Home = (props) => {
+const Home = () => {
     const history = useHistory();
-    // console.log(history)
     const onAbout = () => {
         history.push("about")
     }

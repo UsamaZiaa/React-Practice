@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from './components/Home';
 import About from './components/About';
@@ -9,18 +9,6 @@ import User from './components/User';
 const Router = () => {
     return (
         <BrowserRouter>
-
-            {/* <ul>
-                <li>
-                    <Link to="/home">Home</Link>
-                </li>
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-                <li>
-                    <Link to="/contact">Contact us</Link>
-                </li>
-            </ul> */}
 
             <Switch>
                 <Route path="/" component={Home} exact/>
